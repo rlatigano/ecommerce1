@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -8,9 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
+    /*  [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    */
+    public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productsRepo;
         private readonly IGenericRepository<ProductBrand> _productBrandRepo;
@@ -54,6 +56,8 @@ namespace API.Controllers
 
         }
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType( typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductWithTypesAndBrandsSpecification(id);
@@ -61,6 +65,8 @@ namespace API.Controllers
            como estoy trabajando con Dtos cambio Task<ActionResult<Product>> al Dto Task<ActionResult<ProductToReturnDto>>
            */
            var product = await _productsRepo.GetEntiyWithSpec(spec);
+
+           if(product == null) return NotFound(new ApiResponse(404));
         /*  esto es cuando no tenes instalado el automapper
          return new ProductToReturnDto
            {
