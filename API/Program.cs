@@ -24,6 +24,9 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}"); // 0 => llama al error contr
 
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCors("CorsPolicy");
+
 app.UseAuthorization();
 
 app.MapControllers();
