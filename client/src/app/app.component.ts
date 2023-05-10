@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BasketService } from './basket/basket.service';
 /*
 import { Product } from './shared/models/product';
 import { Pagination } from './shared/models/pagination';
@@ -12,12 +13,16 @@ import { Pagination } from './shared/models/pagination';
 })
 export class AppComponent  implements OnInit{
   title = 'Ecommerce';
- // products: Product[] = [];
+ // products: Product[] = []; product definition 
 
-  //constructor(private http: HttpClient){}
-  constructor(){}
+  constructor(private basketService: BasketService){}
   ngOnInit(): void {
-  /*  this.http.get<Pagination<Product[]>>('https://localhost:5001/api/products?pageSize=50').subscribe({
+    const basketId = localStorage.getItem('basket_id'); // esto es buscar en el temporario esto seria como el tempfac en mi caso
+    if(basketId) this.basketService.getBasket(basketId); // obtengo el id temporal en la memoria 
+    
+
+  /*  pagination was moved to the pagination component
+  this.http.get<Pagination<Product[]>>('https://localhost:5001/api/products?pageSize=50').subscribe({
       next: (response) => this.products = response.data, // what to do next
       error: error => console.log(error), // what to do if there is an error
       complete: () => {
