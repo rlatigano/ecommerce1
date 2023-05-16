@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
 
 
 var app = builder.Build();
@@ -22,10 +23,11 @@ app.UseMiddleware<ExceptionMiddleware>();  // resitro el nuevo manejador de erro
 app.UseStatusCodePagesWithReExecute("/errors/{0}"); // 0 => llama al error controllery
 //if (app.Environment.IsDevelopment()) // se va utilizar swagger en todos lados
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+   // app.UseSwagger();
+ //   app.UseSwaggerUI();
 //}
 
+app.UseSwaggerDocumentation();
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 
