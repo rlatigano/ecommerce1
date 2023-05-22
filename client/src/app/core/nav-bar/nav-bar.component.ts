@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountService } from 'src/app/account/account.service';
 import { BasketService } from 'src/app/basket/basket.service';
 import { BasketItem } from 'src/app/shared/models/basket';
 
@@ -9,7 +10,7 @@ import { BasketItem } from 'src/app/shared/models/basket';
 })
 export class NavBarComponent {
 
-  constructor(public basketService : BasketService) {} // injecta el servicio para ser usando en el hml
+  constructor(public basketService : BasketService, public accountService: AccountService) {} // injecta el servicio para ser usando en el hml
 
   getCount(items:BasketItem[])
   {
